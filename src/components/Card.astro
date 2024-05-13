@@ -1,0 +1,91 @@
+<script>
+	const counter = document.getElementById('counter');
+	let cnt = Number(counter?.innerText || 0);
+
+	const increment = document.getElementById('increment');
+	if (increment && counter) {
+		increment.addEventListener('click', () => {
+			counter.innerHTML = String(++cnt);
+			fetch('/api/increment', { method: 'POST' })
+				.catch(() => {
+					counter.innerHTML = String(--cnt);
+				})
+		})
+	}
+	
+	const decrement = document.getElementById('decrement');
+	if (decrement && counter) {
+		decrement.addEventListener('click', () => {
+			counter.innerHTML = String(--cnt);
+			fetch('/api/decrement', { method: 'POST' })
+				.catch(() => { 
+					counter.innerHTML = String(++cnt);
+				})
+		})
+	}
+</script>
+
+<div class="container">
+	<h1>Hello, World!</h1>
+	<p>This is a basic example of HTML.</p>
+	<p>Current value of cnt: <span id="counter">0</span></p>
+	<div>
+			<button id="increment" type="button">+</button>
+			<button id="decrement" type="button">-</button>
+	</div>
+</div>
+
+<style>
+	body {
+			font-family: Arial, sans-serif;
+			background-color: #f0f0f0;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+	}
+	
+	.container {
+			text-align: center;
+			background-color: #fff;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	}
+	
+	h1 {
+			font-size: 32px;
+			margin-bottom: 20px;
+	}
+	
+	button {
+			padding: 10px 20px;
+			font-size: 16px;
+			cursor: pointer;
+			border: none;
+			border-radius: 4px;
+			margin: 0 5px;
+			transition: background-color 0.3s;
+	}
+	
+	button#increment {
+			background-color: #007bff;
+			color: #fff;
+	}
+	
+	button#decrement {
+			background-color: #dc3545;
+			color: #fff;
+	}
+	
+	button:hover {
+			filter: brightness(1.2);
+	}
+	
+	#counter {
+			font-size: 24px;
+			font-weight: bold;
+	}
+</style>
